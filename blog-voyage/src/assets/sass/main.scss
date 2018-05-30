@@ -3,6 +3,7 @@
 $color: #2c3e50;
 $fontFamily: "Avenir", Helvetica, Arial, sans-serif;
 $textCenter: center;
+$marge: 1em;
 
 #app {
     font-family: $fontFamily;
@@ -10,4 +11,43 @@ $textCenter: center;
     -moz-osx-font-smoothing: grayscale;
     text-align: $textCenter;
     color: $color;
+}
+
+.actuContainer {
+    display: flex;
+    flex-direction: row;
+}
+.cardPerso {
+    flex: 1;
+    min-height: 50px;
+    margin-right: $marge;
+    margin-left: $marge;
+}
+.filActu {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+.pub{
+    flex: 1;
+    margin-left: $marge;
+}
+.element {
+    &.is-loading {
+        position: relative;
+        pointer-events: none;
+        opacity: 0.8;
+        &:after {
+            @include loader;
+            position: absolute;
+            top: calc(50% - 2.5em);
+            left: calc(50% - 2.5em);
+            width: 5em;
+            height: 5em;
+            border-width: 0.25em;
+        }
+    }
+}
+.cardLoad {
+    height: 10em;
 }

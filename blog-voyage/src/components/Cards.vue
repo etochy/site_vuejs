@@ -1,32 +1,49 @@
 <template>
-  <div class="card">
-    <div class="card-image">
-      <figure class="image is-4by3">
-        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-      </figure>
-    </div>
-    <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <figure class="image is-48x48">
-            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-          </figure>
-        </div>
-        <div class="media-content">
-          <p class="title is-4">John Smith</p>
-          <p class="subtitle is-6">@johnsmith</p>
-        </div>
-      </div>
 
-      <div class="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-        <a href="#">#css</a> <a href="#">#responsive</a>
-        <br>
-        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+<div class="actuContainer">
+  <div class="cardPerso">
+    <div class="card" v-bind:class="{ 'cardLoad element is-loading': validPerso}">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">{{ infosPerso[0] }}</p>
+            <p class="subtitle is-6">Posté le : {{infosPerso[2]}}</p>
+            <!-- {{ infosPerso[1] }} -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="filActu">
+
+    <div v-bind:class="{ 'card cardLoad element is-loading': valid}">
+    </div>
+
+    <div v-for="item in posts" :key="item[0]" class="card">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">{{ item[1] }}</p>
+            <p class="subtitle is-6">Posté le : {{ item[0] }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-image">
+        <figure class="image">
+          <img :src=item[3] alt="Placeholder image">
+        </figure>
+      </div>
+      <div class="content">
+        {{ item[2] }}
+      </div>
+    </div>
+  </div>
+
+  <div class="pub">
+
+  </div>
+</div>
 </template>
 
 <script>
@@ -37,7 +54,7 @@ export default {
   data () {
     return {
       posts: [],
-      infPerso: [],
+      infosPerso: [],
       errors: [],
       i: 2,
       j: 6,
@@ -69,7 +86,7 @@ export default {
     HTTP.get(this.perso)
       .then(response => {
         if (response.data.values.length != null) {
-          this.perso = response.data.values[0]
+          this.infosPerso = response.data.values[0]
           this.validPerso = false
         }
       })

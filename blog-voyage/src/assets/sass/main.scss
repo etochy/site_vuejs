@@ -3,7 +3,7 @@
 $color: #2c3e50;
 $fontFamily: "Avenir", Helvetica, Arial, sans-serif;
 $textCenter: center;
-$marge: 1em;
+$marge: 1rem;
 
 #app {
     font-family: $fontFamily;
@@ -27,6 +27,7 @@ $marge: 1em;
     flex: 2;
     display: flex;
     flex-direction: column;
+    margin-bottom: 1em;
 }
 .pub{
     flex: 1;
@@ -50,4 +51,11 @@ $marge: 1em;
 }
 .cardLoad {
     height: 10em;
+}
+
+.card{
+    margin-bottom: $marge;
+}
+.image {
+max-height: 50%;
 }

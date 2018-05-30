@@ -12,13 +12,13 @@
           </div>
         </div>
       </div>
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item">Me contacter</a>
+      </footer>
     </div>
   </div>
 
   <div class="filActu">
-
-    <div v-bind:class="{ 'card cardLoad element is-loading': valid}">
-    </div>
 
     <div v-for="item in posts" :key="item[0]" class="card">
       <div class="card-content">
@@ -31,13 +31,29 @@
       </div>
       <div class="card-image">
         <figure class="image">
-          <img :src=item[3] alt="Placeholder image">
+          <img :src=item[3] alt="Placeholder image" @click="ouvrirModal(item)">
         </figure>
       </div>
       <div class="content">
         {{ item[2] }}
       </div>
     </div>
+
+    <div v-bind:class="{ 'card cardLoad element is-loading': valid}">
+    </div>
+
+    <a class="button is-primary is-outlined"  v-bind:class="{ 'is-loading': validPlus}"  @click="charger()">Plus</a>
+
+    <div class="modal"  v-bind:class="{ 'is-active': modal}">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <p class="image">
+          <img :src=contenuModal[3] alt="">
+        </p>
+      </div>
+      <button class="modal-close is-large" aria-label="close" @click="fermerModal()"></button>
+    </div>
+
   </div>
 
   <div class="pub">
@@ -62,7 +78,10 @@ export default {
       y1: ':D',
       y2: '?valueRenderOption=FORMATTED_VALUE&dateTimeRenderOption=FORMATTED_STRING&alt=json',
       valid: true,
+      validPlus: false,
       validPerso: true,
+      modal: false,
+      contenuModal: [],
       perso: 'F2:H2?valueRenderOption=FORMATTED_VALUE&dateTimeRenderOption=FORMATTED_STRING&alt=json'
     }
   },
@@ -95,24 +114,35 @@ export default {
         this.validPerso = false
       })
   },
-  charger () {
-    const req = this.y + this.i + this.y1 + this.j + this.y2
-    console.log(req)
-    HTTP.get(req)
-      .then(response => {
-        if (response.data.values.length != null) {
-          response.data.values.forEach(element => {
-            this.posts.push(element)
-          })
-          this.i = this.posts.length + 2
-          this.j = this.i + 5
-        }
-        this.valid = false
-      })
-      .catch(e => {
-        this.errors.push(e)
-        this.valid = false
-      })
+  methods: {
+    charger () {
+      this.validPlus = true
+      const req = this.y + this.i + this.y1 + this.j + this.y2
+      console.log(req)
+      HTTP.get(req)
+        .then(response => {
+          if (response.data.values.length != null) {
+            response.data.values.forEach(element => {
+              this.posts.push(element)
+            })
+            this.i = this.posts.length + 2
+            this.j = this.i + 5
+          }
+          this.validPlus = false
+        })
+        .catch(e => {
+          this.errors.push(e)
+          this.validPlus = false
+        })
+    },
+    ouvrirModal (item) {
+      console.log('ouverture')
+      this.contenuModal = item
+      this.modal = true
+    },
+    fermerModal () {
+      this.modal = false
+    }
   }
 }
 </script>

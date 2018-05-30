@@ -1,6 +1,6 @@
 <template>
 <div id='app'>
-  <div class="tabs is-fullwidth">
+  <header class="tabs is-centered">
     <ul>
       <li :class="[ tab === 'actu' ? 'is-active' : '']" @click="selectTab('actu')">
         <router-link id="router-link" class="level-item" to="/" active-class="is-active">
@@ -18,7 +18,7 @@
         </router-link>
       </li>
     </ul>
-  </div>
+  </header>
   <router-view/>
 </div>
 
@@ -43,14 +43,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

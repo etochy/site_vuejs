@@ -20,22 +20,22 @@
 
   <div class="filActu">
 
-    <div v-for="item in posts" :key="item[0]" class="card">
+    <div v-for="item in posts" :key="item.date" class="card">
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-4">{{ item[1] }}</p>
-            <p class="subtitle is-6">Posté le : {{ item[0] }}</p>
+            <p class="title is-4">{{ item.nom }}</p>
+            <p class="subtitle is-6">Posté le : {{  item.date | moment }}</p>
           </div>
         </div>
       </div>
       <div class="card-image">
         <figure class="image">
-          <img :src=item[3] alt="Placeholder image" @click="ouvrirModal(item)">
+          <img :src=item.image alt="Placeholder image" @click="ouvrirModal(item)">
         </figure>
       </div>
       <div class="content">
-        {{ item[2] }}
+        {{ item.description }}
       </div>
     </div>
 
@@ -48,7 +48,7 @@
       <div class="modal-background"></div>
       <div class="modal-content">
         <p class="image">
-          <img :src=contenuModal[3] alt="">
+          <img :src=contenuModal.image alt="">
         </p>
       </div>
       <button class="modal-close is-large" aria-label="close" @click="fermerModal()"></button>
@@ -63,49 +63,52 @@
 </template>
 
 <script>
-import {HTTP} from './../share/http-common'
+import { HTTP } from './../services/servicesArticles'
 
+import moment from 'moment'
+
+/* eslint-disable */
 export default {
-  name: 'HelloWorld',
-  data () {
+  name: 'coucou',
+  data() {
     return {
       posts: [],
       infosPerso: [],
       errors: [],
-      i: 2,
-      j: 6,
-      y: 'A',
-      y1: ':D',
-      y2: '?valueRenderOption=FORMATTED_VALUE&dateTimeRenderOption=FORMATTED_STRING&alt=json',
+      i: 0,
       valid: true,
       validPlus: false,
       validPerso: true,
       modal: false,
       contenuModal: [],
-      perso: 'F2:H2?valueRenderOption=FORMATTED_VALUE&dateTimeRenderOption=FORMATTED_STRING&alt=json'
-    }
+      params: {
+        limit: 6,
+        skip: 0
+      }
+    };
   },
-  created () {
-    const req = this.y + this.i + this.y1 + this.j + this.y2
+  created() {
     // Init liste posts
-    HTTP.get(req)
+    HTTP.get('articles?limit=' + this.params.limit + '&skip=' + this.params.skip)
       .then(response => {
-        if (response.data.values.length != null) {
-          this.posts = response.data.values
-          this.i = this.posts.length + 2
-          this.j = this.i + 5
+        if (response.data.length != null) {
+          this.posts = response.data;
+
+          this.i = this.posts.length;
+          this.j = this.i + 5;
         }
-        this.valid = false
+        this.valid = false;
       })
       .catch(e => {
-        this.errors.push(e)
-        this.valid = false
-      })
+        console.log(e);
+        this.errors.push(e);
+        this.valid = false;
+      });
     // Init info personnelles
-    HTTP.get(this.perso)
+    HTTP.get('utilisateurs/elaunay')
       .then(response => {
-        if (response.data.values.length != null) {
-          this.infosPerso = response.data.values[0]
+        if (response.data != null) {
+          this.infosPerso = response.data;
           this.validPerso = false
         }
       })
@@ -115,34 +118,38 @@ export default {
       })
   },
   methods: {
-    charger () {
-      this.validPlus = true
-      const req = this.y + this.i + this.y1 + this.j + this.y2
-      console.log(req)
-      HTTP.get(req)
+    charger() {
+      this.validPlus = true;
+      //const req = this.y + this.i + this.y1 + this.j + this.y2
+      HTTP.params.skip = this.i;
+      HTTP.get('articles?limit=' + this.params.limit + '&skip=' + this.params.skip)
         .then(response => {
           if (response.data.values.length != null) {
             response.data.values.forEach(element => {
-              this.posts.push(element)
-            })
-            this.i = this.posts.length + 2
-            this.j = this.i + 5
+              this.posts.push(element);
+            });
+            this.i = this.posts.length;
+            //this.j = this.i + 5
           }
-          this.validPlus = false
+          this.validPlus = false;
         })
         .catch(e => {
-          this.errors.push(e)
-          this.validPlus = false
-        })
+          this.errors.push(e);
+          this.validPlus = false;
+        });
     },
-    ouvrirModal (item) {
-      console.log('ouverture')
-      this.contenuModal = item
-      this.modal = true
+    ouvrirModal(item) {
+      this.contenuModal = item;
+      this.modal = true;
     },
-    fermerModal () {
-      this.modal = false
+    fermerModal() {
+      this.modal = false;
+    }
+  },
+  filters: {
+    moment: function(date) {
+      return moment(date).format('L');
     }
   }
-}
+};
 </script>

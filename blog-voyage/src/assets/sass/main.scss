@@ -1,9 +1,13 @@
+/* Theme : */
+$primary: rgb(0, 78, 247);
+
 @import "bulma";
 
 $color: #2c3e50;
 $fontFamily: "Avenir", Helvetica, Arial, sans-serif;
 $textCenter: center;
 $marge: 1rem;
+$tailleMax: 40em;
 
 #app {
     font-family: $fontFamily;
@@ -58,4 +62,8 @@ $marge: 1rem;
 }
 .image {
 max-height: 50%;
+}
+.formulaire {
+    max-width: $tailleMax;
+    margin: 0 auto;
 }

@@ -4,14 +4,18 @@ import Router from 'vue-router'
 import Cards from '@/components/Cards'
 import InfoPerso from '@/components/InfoPerso'
 import Position from '@/components/Position'
+import Login from '@/components/Login'
+import Creation from '@/components/Creation'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/', redirect: '/cards' },
-    { path: '/cards', name: 'Actualité', component: Cards },
+    { path: '/', redirect: '/actualite' },
+    { path: '/actualite', name: 'Actualité', component: Cards },
     { path: '/about', name: 'About', component: InfoPerso },
-    { path: '/contact', name: 'Contact', component: Position }
+    { path: '/contact', name: 'Contact', component: Position },
+    { path: '/login', name: 'Login', component: Login },
+    { path: '/create', name: 'Create', component: Creation }
   ]
 })

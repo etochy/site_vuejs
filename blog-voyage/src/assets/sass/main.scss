@@ -1,5 +1,12 @@
 /* Theme : */
 $primary: rgb(0, 78, 247);
+$footer-background-color: rgb(88, 88, 88);
+/* Tabs */
+$tabs-border-bottom-color:hsl(0, 0%, 86%);
+$tabs-link-color:hsl(0, 0%, 100%);
+$tabs-link-hover-color:	hsl(226, 100%, 44%);
+$tabs-link-active-border-bottom-color:hsl(0, 94%, 44%);
+$tabs-link-active-color:hsl(0, 97%, 74%);
 
 @import "bulma";
 
@@ -15,26 +22,32 @@ $tailleMax: 40em;
     -moz-osx-font-smoothing: grayscale;
     text-align: $textCenter;
     color: $color;
+    background-color: rgb(238, 238, 238);
 }
 
 .actuContainer {
     display: flex;
     flex-direction: row;
+    max-width: 80em;
+    margin: 0 auto;
 }
 .cardPerso {
-    flex: 1;
-    min-height: 50px;
-    margin-right: $marge;
+    min-height: 20em;
+    max-width: 25em;
+   /* margin-right: $marge; */
     margin-left: $marge;
+    
 }
 .filActu {
-    flex: 2;
+    min-width: 25em;
+    /*max-width: 25em;*/
     display: flex;
     flex-direction: column;
     margin-bottom: 1em;
+    margin-left: $marge;
+    margin-right: $marge;
 }
 .pub{
-    flex: 1;
     margin-left: $marge;
 }
 .element {
@@ -66,4 +79,22 @@ max-height: 50%;
 .formulaire {
     max-width: $tailleMax;
     margin: 0 auto;
+}
+.tabs {
+    margin-bottom: 1em;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0px;
+    z-index: 100;
+    background: linear-gradient(to bottom right, rgba(165, 73, 11, 0.8), rgba(120, 49, 3, 0.8));
+    
+}
+.hero {
+    background-image: url("./../../../static/IMGP4307.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+.media-content {
+    z-index: 5;
 }

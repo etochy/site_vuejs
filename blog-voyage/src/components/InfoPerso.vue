@@ -1,6 +1,6 @@
 <template>
 <div class="tabs">
-    <h1>Infos personnelles</h1>
+    <h1>WORK IN PROGRESS</h1>
 </div>
 </template>
 

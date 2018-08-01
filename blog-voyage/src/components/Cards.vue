@@ -56,7 +56,7 @@
     <div v-bind:class="{ 'card cardLoad element is-loading': valid}">
     </div>
 
-    <a class="button is-primary is-outlined"  v-bind:class="{ 'is-loading': validPlus}"  v-on:click="charger()">Plus</a>
+    <a class="button is-primary is-outlined"  v-bind:class="{ 'is-loading': validPlus}"  @click="charger()">Plus</a>
 
   </div>
 </div>
@@ -126,8 +126,8 @@ export default {
         "articles?limit=" + this.params.limit + "&skip=" + this.params.skip
       )
         .then(response => {
-          if (response.data.values.length != null) {
-            response.data.values.forEach(element => {
+          if (response.data.length != null) {
+            response.data.forEach(element => {
               this.posts.push(element);
             });
             this.i = this.posts.length;

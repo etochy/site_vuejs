@@ -9,7 +9,8 @@
         </div>
         <div class="control">
           <span>Date</span>
-            <input v-model="date" class="input is-primary is-rounded" type="text" placeholder="date">
+            <!--<input v-model="date" class="input is-primary is-rounded" type="text" placeholder="date">-->
+            <datepicker :format="format" v-model="date"></datepicker>
         </div>
         <div class="control">
           <span>Localistaion</span>
@@ -32,13 +33,17 @@
 <script>
 /* eslint-disable */
 import { HTTP } from "./../services/servicesArticles";
+import Datepicker from 'vuejs-datepicker';
 
 export default {
   name: "InfoPerso",
+  components: {
+    Datepicker
+  },
   data() {
     return {
       loading: false,
-
+      format: 'MM-dd-yyyy',
       utilisateur: "",
       akArticle: "",
       nom: "",

@@ -33,13 +33,13 @@ $tailleMax: 40em;
 }
 .cardPerso {
     min-height: 20em;
-    max-width: 25em;
+    width: 40em;
    /* margin-right: $marge; */
     margin-left: $marge;
     
 }
 .filActu {
-    min-width: 25em;
+    min-width: 30em;
     /*max-width: 25em;*/
     display: flex;
     flex-direction: column;
@@ -97,4 +97,11 @@ max-height: 50%;
 }
 .media-content {
     z-index: 5;
+}
+.creationList {
+    display: flex;
+    flex-flow: row wrap;
+}
+.cardPropos {
+    text-align: left;
 }

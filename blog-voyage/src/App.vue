@@ -41,8 +41,13 @@
     <div class="content has-text-centered">
       <p>
         <strong>estebanlaunay.com</strong> by <a href="https://github.com/etochy">Esteban Launay</a>.
-        This website works with <a href="https://bulma.io/">BULMA</a> and <a href="https://vuejs.org/">VueJs</a>. The website content
-        is licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
+        This website works with <a href="https://bulma.io/">BULMA</a> and <a href="https://vuejs.org/">VueJs</a>.
+        <br>
+        The website content is licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.CC BY-NC-SA 4.0
+        <br>
+        <router-link id="router-link" class="level-item" to="/login" active-class="is-active">
+          administration
+        </router-link>
       </p>
     </div>
   </footer>

@@ -1,19 +1,141 @@
 <template>
-<div>
-    <h1>LE SITE EST ENCORE EN CONSTRUCTION</h1>
-
-    <h2>Tu peux toujours me contacter en m'envoyant un mail a : </h2>
-    <a href="mailto:esteban.launay.pro@gmail.com">esteban.launay.pro@gmail.com</a>
+<div class="container is-fullhd">
+  <div class="columns">
+  <div class="column">
+    <div class="card">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">Me contacter par mail (IN PROGRESS)</p>
+          </div>
+        </div>
+        <div class="content">
+          <form class="field formulaire ">
+            <div class="control">
+              <span>Objet du message</span>
+                <input v-model="sujet" class="input is-primary is-rounded" type="text" placeholder="Sujet" required>
+            </div>
+            <div class="control">
+              <span>Votre adresse mail</span>
+                <input v-model="mail" class="input is-primary is-rounded" type="email" placeholder="Adress" required>
+            </div>
+            <div class="control">
+              <span>Message</span>
+                <textarea v-model="message" class="textarea is-primary" type="text" placeholder="Message" required></textarea>
+            </div>
+            <br>
+            <button class="button is-primary is-static"  v-bind:class="{ 'is-loading': loading}" v-on:click="envoi_mail()">Envoyer mail</button>
+          </form>
+          <div  v-if="envoiOk" class="notification is-success">
+            <button class="delete" v-on:click="fermer('ok')"></button>
+            <span>L'envoi du mail est un succès, je vous recontacte dès que possible.</span>
+          </div>
+          <div  v-if="envoiError" class="notification is-danger">
+            <button class="delete" v-on:click="fermer('error')"></button>
+            <span>L'envoi du mail a échoué, veuillez retenter plus tard ou m'envoyer directement un mail à :</span>
+            <a href="mailto:esteban.launay.pro@gmail.com">esteban.launay.pro@gmail.com</a>
+          </div>
+          <div  v-if="formError" class="notification is-danger">
+            <button class="delete" v-on:click="fermer('form')"></button>
+            <span>Veuillez remplir l'ensemble du formulaire pour pouvoir me contacter</span>
+          </div>
+          <div  class="notification is-danger">
+            <span>L'envoi de mail par ce formulaire n'est malheureuseùent pas disponible pour le moment, pour me contacter, veuillez envoyer un mail à :</span><br>
+            <a href="mailto:esteban.launay.pro@gmail.com">esteban.launay.pro@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card" >
+      <div class="card-content">
+        <p class="title is-4">Vous pouvez aussi me contacter via ces plateformes</p>
+        <div class="content">
+          <a class="button is-dark" href="https://github.com/etochy" target="_blank">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+            <span>Github</span>
+          </a>
+          <a class="button is-dark" href="http://www.linkedin.com/in/esteban-launay-8b2060a5" target="_blank">
+            <span class="icon">
+              <i class="fab fa-linkedin"></i>
+            </span>
+            <span>Linkedin</span>
+          </a>
+          <a class="button is-dark" href="https://www.malt.fr/profile/estebanlaunay" target="_blank">
+            <span class="icon">
+              <i class="far fa-comments"></i>
+            </span>
+            <span>Hire me on Malt</span>
+          </a>
+          <br>
+          <br>
+          <span>Si vous préfèrez m'envoyer un mail directement :</span>
+          <a href="mailto:esteban.launay.pro@gmail.com">esteban.launay.pro@gmail.com</a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
 <script>
+/* eslint-disable */
+import { HTTP } from "./../services/servicesArticles";
+
 export default {
-  name: 'Contact',
-  data () {
+  name: "Contact",
+  data() {
     return {
-      msg: 'test'
+      sujet: "",
+      mail: "",
+      message: "",
+      loading: false,
+      envoiOk: false,
+      envoiError: false,
+      formError: false
+    };
+  },
+  methods: {
+    envoi_mail() {
+      if (this.sujet === "" || this.mail === "" || this.message === "" || !this.mail.includes('@') || !this.mail.includes('.')) {
+        this.formError = true;
+      } else {
+        this.loading = true;
+        var message = {
+          sujet: this.sujet,
+          mail: this.mail,
+          message: this.message
+        };
+        HTTP.post("/contacter", message)
+          .then(response => {
+            this.loading = false;
+            this.envoiOk = true;
+            this.sujet = "";
+            this.mail = "";
+            this.message = "";
+            this.envoiError = false;
+            this.formError = false;
+          })
+          .catch(error => {
+            console.log(error);
+            this.loading = false;
+            this.envoiError = true;
+          });
+      }
+    },
+    fermer(b) {
+      if (b === "ok") {
+        this.envoiOk = false;
+      } else if(b === 'envoi'){
+        this.envoiError = false;
+      } else if(b === 'form'){
+        this.formError = false;
+      }
     }
   }
-}
+};
 </script>

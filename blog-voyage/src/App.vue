@@ -2,7 +2,49 @@
 
 <div id='app'>
   <header>
-    <section class="hero is-primary is-medium">
+    <section class="hero is-dark is-medium">
+        <div class="hero-head">
+          <nav class="navbar">
+            <div class="container">
+              <div class="navbar-menu">
+                <div class="navbar-end">
+                  <span class="navbar-item">
+                    <a class="button is-dark" href="https://github.com/etochy" target="_blank">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Github</span>
+                    </a>
+                  </span>
+                  <span class="navbar-item">
+                    <a class="button is-dark" href="http://www.linkedin.com/in/esteban-launay-8b2060a5" target="_blank">
+                      <span class="icon">
+                        <i class="fab fa-linkedin"></i>
+                      </span>
+                      <span>Linkedin</span>
+                    </a>
+                  </span>
+                  <span class="navbar-item">
+                    <a class="button is-dark" href="https://www.malt.fr/profile/estebanlaunay" target="_blank">
+                      <span class="icon">
+                        <i class="far fa-comments"></i>
+                      </span>
+                      <span>Hire me on Malt</span>
+                    </a>
+                  </span>
+                  <span class="navbar-item">
+                    <a class="button is-dark" href="https://www.instagram.com/esteban_launay/" target="_blank">
+                      <span class="icon">
+                        <i class="fab fa-instagram"></i>
+                      </span>
+                      <span>Instagram</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -43,7 +85,7 @@
         <strong>estebanlaunay.com</strong> by <a href="https://github.com/etochy">Esteban Launay</a>.
         This website works with <a href="https://bulma.io/">BULMA</a> and <a href="https://vuejs.org/">VueJs</a>.
         <br>
-        The website content is licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.CC BY-NC-SA 4.0
+        The website content is licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.CC BY-NC 4.0
         <br>
         <router-link id="router-link" class="level-item" to="/login" active-class="is-active">
           administration

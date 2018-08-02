@@ -28,18 +28,18 @@ $tailleMax: 40em;
 .actuContainer {
     display: flex;
     flex-direction: row;
-    max-width: 80em;
+    /*max-width: 80em;*/
     margin: 0 auto;
 }
 .cardPerso {
-    min-height: 20em;
-    width: 40em;
-   /* margin-right: $marge; */
+    /*min-height: 20em;*/
+    /*width: 40em;*/
+    margin-right: $marge; 
     margin-left: $marge;
     
 }
 .filActu {
-    min-width: 30em;
+   /* min-width: 30em;*/
     /*max-width: 25em;*/
     display: flex;
     flex-direction: column;

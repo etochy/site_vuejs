@@ -1,7 +1,8 @@
 
 <template>
-<div class="actuContainer">
-  <div class="cardPerso">
+<div class="container is-fullhd">
+<div class=" columns">
+  <div class="cardPerso column is-one-third">
     <div class="card" v-bind:class="{ 'cardLoad element is-loading': validPerso}">
       <div class="card-image">
         <figure class="image">
@@ -30,7 +31,7 @@
     </div>
   </div>
 
-  <div class="filActu">
+  <div class="filActu column">
 
     <div v-for="item in posts" :key="item.date" class="card">
       <div class="card-content">
@@ -59,6 +60,7 @@
     <a class="button is-primary is-outlined"  v-bind:class="{ 'is-loading': validPlus}"  @click="charger()">Plus</a>
 
   </div>
+</div>
 </div>
 </template>
 

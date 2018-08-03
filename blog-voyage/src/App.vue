@@ -60,17 +60,17 @@
   </header>
     <div class="tabs is-centered">
       <ul>
-        <li :class="[ tab === 'actu' ? 'is-active' : '']" @click="selectTab('actu')">
+        <li :class="[ tab === 'actu' ? 'is-active' : '']">
           <router-link id="router-link" class="level-item" to="/" active-class="is-active">
             Actualité
           </router-link>
         </li>
-        <li :class="[ tab === 'contact' ? 'is-active' : '']" @click="selectTab('contact')">
+        <li :class="[ tab === 'contact' ? 'is-active' : '']">
           <router-link id="router-link" class="level-item" to="/contact" active-class="is-active">
             Me contacter
           </router-link>
         </li>
-        <li :class="[ tab === 'propos' ? 'is-active' : '']" @click="selectTab('propos')">
+        <li :class="[ tab === 'about' ? 'is-active' : '']">
           <router-link id="router-link" class="level-item" to="/about" active-class="is-active">
             A propos
           </router-link>
@@ -105,8 +105,16 @@ export default {
   components: {},
   data() {
     return {
-      tab: "actu"
+      tab: this.$route.name
     };
+  },
+  created() {
+  },
+  watch: {
+    // modification des tab en fonction de la route
+    '$route' (to, from) {
+       this.selectTab(to.name);
+    }
   },
   methods: {
     selectTab(selectedTab) {

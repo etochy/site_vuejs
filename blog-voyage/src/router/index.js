@@ -12,10 +12,10 @@ Vue.use(Router)
 export default new Router({
   routes: [
     { path: '/', redirect: '/actualite' },
-    { path: '/actualite', name: 'Actualité', component: Cards },
-    { path: '/about', name: 'About', component: InfoPerso },
-    { path: '/contact', name: 'Contact', component: Contact },
-    { path: '/login', name: 'Login', component: Login },
-    { path: '/create', name: 'Create', component: Creation }
+    { path: '/actualite', name: 'actu', component: Cards },
+    { path: '/about', name: 'about', component: InfoPerso },
+    { path: '/contact', name: 'contact', component: Contact },
+    { path: '/login', name: 'login', component: Login },
+    { path: '/create', name: 'create', component: Creation }
   ]
 })

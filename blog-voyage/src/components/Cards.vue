@@ -1,6 +1,6 @@
 
 <template>
-<div class="container is-fullhd">
+<div class="container is-fullhd"  id="actualite">
 <div class=" columns">
   <div class="cardPerso column is-one-third">
     <div class="card" v-bind:class="{ 'cardLoad element is-loading': validPerso}">
@@ -24,14 +24,22 @@
       </div>
       <footer class="card-footer">
         <div class="card-footer-item" style="flex-direction:column">
-          <a :href=mailto+user.email>Me contacter</a>
-          <p> {{ user.email }} </p>
+          <router-link id="router-link" class="level-item" to="/contact" active-class="is-active">
+            Me contacter
+          </router-link>
         </div>
       </footer>
     </div>
   </div>
 
-  <div class="filActu column">
+  <div class="filActu column" >
+
+    <a class="button is-primary is-outlined" v-bind:class="{ 'is-loading': valid}"  @click="initChargement(); chargerUser()" style="max-width: 10em">
+      <span class="icon">
+        <i class="fas fa-sync"></i>
+      </span>
+      <span>Actualiser</span>
+    </a>
 
     <div v-for="item in posts" :key="item.date" class="card">
       <div class="card-content">
@@ -57,8 +65,14 @@
     <div v-bind:class="{ 'card cardLoad element is-loading': valid}">
     </div>
 
-    <a class="button is-primary is-outlined"  v-bind:class="{ 'is-loading': validPlus}"  @click="charger()">Plus</a>
-
+    <a class="button is-primary is-outlined" v-if="!toutVu" v-bind:class="{ 'is-loading': validPlus}"  @click="charger()">Charger plus</a>
+    <p v-if="toutVu">Il n'y a pas d'actualité supplémentaire</p>
+    <a href="#actualite" class="button is-primary is-outlined" v-if="toutVu" v-bind:class="{ 'is-loading': validPlus}"  @click="initChargement(); chargerUser()">
+      <span class="icon">
+        <i class="fas fa-sync"></i>
+      </span>
+      <span>Actualiser</span>
+    </a>
   </div>
 </div>
 </div>
@@ -67,7 +81,7 @@
 <script>
 /* eslint-disable */
 import { HTTP } from "./../services/servicesArticles";
-
+import App from "./../App.vue";
 import moment from "moment";
 
 export default {
@@ -89,9 +103,10 @@ export default {
       map: null,
       errors: [],
       i: 0,
-      valid: true,
+      valid: false,
       validPlus: false,
       validPerso: true,
+      toutVu: false,
       modal: false,
       contenuModal: [],
       params: {
@@ -128,11 +143,14 @@ export default {
         "articles?limit=" + this.params.limit + "&skip=" + this.params.skip
       )
         .then(response => {
-          if (response.data.length != null) {
+          if (response.data.length != null && response.data.length != 0) {
             response.data.forEach(element => {
               this.posts.push(element);
             });
             this.i = this.posts.length;
+            this.toutVu = false;
+          } else {
+            this.toutVu = true;
           }
           this.validPlus = false;
         })
@@ -143,21 +161,23 @@ export default {
     },
     initChargement() {
       // Init liste posts
-      HTTP.get(
-        "articles?limit=" + this.params.limit + "&skip=" + this.params.skip
-      )
-        .then(response => {
-          if (response.data.length != null) {
-            this.posts = response.data;
-            this.i = this.posts.length;
-          }
-          this.valid = false;
-          this.map.invalidateSize(true);
-        })
-        .catch(e => {
-          this.errors.push(e);
-          this.valid = false;
-        });
+      (this.valid = true),
+        HTTP.get(
+          "articles?limit=" + this.params.limit + "&skip=" + this.params.skip
+        )
+          .then(response => {
+            if (response.data.length != null && response.data.length != 0) {
+              this.posts = response.data;
+              this.i = this.posts.length;
+              this.toutVu = false;
+            }
+            this.valid = false;
+            this.map.invalidateSize(true);
+          })
+          .catch(e => {
+            this.errors.push(e);
+            this.valid = false;
+          });
     },
     chargerUser() {
       HTTP.get("utilisateurs/elaunay")

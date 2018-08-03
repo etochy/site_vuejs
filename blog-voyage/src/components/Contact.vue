@@ -6,7 +6,7 @@
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-4">Me contacter par mail (IN PROGRESS)</p>
+            <p class="title is-4">Me contacter par mail</p>
           </div>
         </div>
         <div class="content">
@@ -24,7 +24,7 @@
                 <textarea v-model="message" class="textarea is-primary" type="text" placeholder="Message" required></textarea>
             </div>
             <br>
-            <button class="button is-primary is-static"  v-bind:class="{ 'is-loading': loading}" v-on:click="envoi_mail()">Envoyer mail</button>
+            <button class="button is-primary "  v-bind:class="{ 'is-loading': loading}" v-on:click="envoi_mail()">Envoyer mail</button>
           </form>
           <div  v-if="envoiOk" class="notification is-success">
             <button class="delete" v-on:click="fermer('ok')"></button>
@@ -39,8 +39,8 @@
             <button class="delete" v-on:click="fermer('form')"></button>
             <span>Veuillez remplir l'ensemble du formulaire pour pouvoir me contacter</span>
           </div>
-          <div  class="notification is-danger">
-            <span>L'envoi de mail par ce formulaire n'est malheureuseùent pas disponible pour le moment, pour me contacter, veuillez envoyer un mail à :</span><br>
+          <div  class="notification is-danger" v-if="false"> <!-- Au cas ou un probleme survient sur les mails -->
+            <span>L'envoi de mail par ce formulaire n'est malheureusement pas disponible pour le moment, pour me contacter, veuillez envoyer un mail à :</span><br>
             <a href="mailto:esteban.launay.pro@gmail.com">esteban.launay.pro@gmail.com</a>
           </div>
         </div>

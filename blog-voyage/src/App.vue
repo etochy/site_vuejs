@@ -82,7 +82,7 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        <strong>estebanlaunay.com</strong> by <a href="https://github.com/etochy">Esteban Launay</a>.
+        <strong>launay-esteban.fr</strong> by <a href="https://github.com/etochy">Esteban Launay</a>.
         This website works with <a href="https://bulma.io/">BULMA</a> and <a href="https://vuejs.org/">VueJs</a>.
         <br>
         The website content is licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.CC BY-NC 4.0
